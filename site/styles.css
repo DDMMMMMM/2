@@ -851,12 +851,26 @@ section[id] {
 }
 
 .tdash-copy h2,
+.tdash-copy h3,
 .tdash-copy p,
 .tdash-copy strong {
   color: var(--ink);
 }
 
-.tdash-copy p {
+.tdash-copy .section-label {
+  margin: 22px 0 14px;
+}
+
+.tdash-copy h3 {
+  margin: 0;
+  max-width: 620px;
+  font-family: var(--font-display);
+  font-size: clamp(2.05rem, 3.45vw, 4.1rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.tdash-copy p:not(.section-label) {
   margin-top: 24px;
   color: rgba(245, 248, 234, 0.74);
 }
