@@ -1,0 +1,93 @@
+[
+  {
+    "image": "assets/screens/work-09.webp",
+    "views": "109K",
+    "sector": "Street food",
+    "title": "Un contenuto semplice, costruito su prodotto e territorio.",
+    "category": "food"
+  },
+  {
+    "image": "assets/screens/work-03.webp",
+    "views": "86,2K",
+    "sector": "Industria",
+    "title": "Tema tecnico trasformato in video verticale comprensibile.",
+    "category": "technical"
+  },
+  {
+    "image": "assets/screens/work-06.webp",
+    "views": "65,9K",
+    "sector": "Centro benessere",
+    "title": "Awareness locale con messaggio diretto e riconoscibile.",
+    "category": "local"
+  },
+  {
+    "image": "assets/screens/work-10.webp",
+    "views": "26,4K",
+    "sector": "Attività locale",
+    "title": "Situazione reale convertita in contenuto ad alta interazione.",
+    "category": "local"
+  },
+  {
+    "image": "assets/screens/work-07.webp",
+    "views": "22,5K",
+    "sector": "Local business",
+    "title": "Volto, fiducia e presenza in camera.",
+    "category": "local"
+  },
+  {
+    "image": "assets/screens/work-08.webp",
+    "views": "16,8K",
+    "sector": "Food retail",
+    "title": "Scene di servizio e ritmo verticale.",
+    "category": "food"
+  },
+  {
+    "image": "assets/screens/work-02.webp",
+    "views": "15,8K",
+    "sector": "Automotive",
+    "title": "Storytelling per officina e competenze tecniche.",
+    "category": "technical"
+  },
+  {
+    "image": "assets/screens/work-13.webp",
+    "views": "15,2K",
+    "sector": "Food & beverage",
+    "title": "Personaggio memorabile e identità visiva forte.",
+    "category": "food"
+  },
+  {
+    "image": "assets/screens/work-11.webp",
+    "views": "14,8K",
+    "sector": "Street food",
+    "title": "Messaggio semplice, prodotto al centro, payoff immediato.",
+    "category": "food"
+  },
+  {
+    "image": "assets/screens/work-01.webp",
+    "views": "13,6K",
+    "sector": "Ristorazione",
+    "title": "Racconto umano per attività di quartiere.",
+    "category": "food"
+  },
+  {
+    "image": "assets/screens/work-12.webp",
+    "views": "10,3K",
+    "sector": "Tacos Land",
+    "title": "Formato snackable con promessa chiara.",
+    "category": "food"
+  },
+  {
+    "image": "assets/screens/work-04.webp",
+    "views": "9.388",
+    "sector": "Eventi",
+    "title": "Promozione evento con presenza diretta.",
+    "category": "local"
+  },
+  {
+    "image": "assets/screens/work-05.webp",
+    "views": "5.870",
+    "sector": "Retail fashion",
+    "title": "Valore percepito e selezione prodotto.",
+    "category": "retail"
+  }
+]

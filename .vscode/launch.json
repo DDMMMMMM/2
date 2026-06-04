@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run 2YOU Agency site",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:4173",
+      "webRoot": "${workspaceFolder}/site",
+      "preLaunchTask": "2YOU: ensure local server"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "2YOU: ensure local server",
+      "type": "shell",
+      "command": "$port=4173; if (-not (Get-NetTCPConnection -LocalPort $port -ErrorAction SilentlyContinue)) { Start-Process -FilePath python -ArgumentList @('-m','http.server',$port,'-d','site') -WorkingDirectory '${workspaceFolder}' -WindowStyle Hidden | Out-Null; Start-Sleep -Milliseconds 700 }; Write-Host \"2YOU local site: http://localhost:$port\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "2YOU: serve site in terminal",
+      "type": "shell",
+      "command": "python -m http.server 4173 -d site",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ]
+}
