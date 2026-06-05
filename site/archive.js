@@ -153,22 +153,31 @@ if (year) {
 
 if (navToggle && siteNav) {
   navToggle.addEventListener("click", () => {
-    const isOpen = siteNav.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
-    document.body.classList.toggle("is-menu-open", isOpen);
+    setMobileMenu(!siteNav.classList.contains("is-open"));
   });
 
   siteNav.addEventListener("click", (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
+    if (event.target instanceof Element && event.target.closest("a")) {
+      closeMobileMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
       closeMobileMenu();
     }
   });
 }
 
+function setMobileMenu(isOpen) {
+  siteNav?.classList.toggle("is-open", isOpen);
+  navToggle?.setAttribute("aria-expanded", String(isOpen));
+  navToggle?.setAttribute("aria-label", isOpen ? "Chiudi menu" : "Apri menu");
+  document.body.classList.toggle("is-menu-open", isOpen);
+}
+
 function closeMobileMenu() {
-  siteNav?.classList.remove("is-open");
-  navToggle?.setAttribute("aria-expanded", "false");
-  document.body.classList.remove("is-menu-open");
+  setMobileMenu(false);
 }
 
 function escapeHtml(value) {
@@ -316,6 +325,7 @@ document.addEventListener("keydown", (event) => {
 
   if (event.key === "Escape" && siteNav?.classList.contains("is-open")) {
     closeMobileMenu();
+    navToggle?.focus();
   }
 });
 

@@ -163,6 +163,7 @@ const brochureZoomImage = document.querySelector("[data-brochure-zoom-image]");
 const brochureZoomOpenButtons = document.querySelectorAll("[data-brochure-zoom-open]");
 const brochureZoomPrev = document.querySelector("[data-brochure-zoom-prev]");
 const brochureZoomNext = document.querySelector("[data-brochure-zoom-next]");
+const brochureZoomMobileQuery = window.matchMedia("(max-width: 768px)");
 
 let lastFocusedElement = null;
 let allCaseStudies = fallbackResults;
@@ -187,22 +188,31 @@ if (year) {
 
 if (navToggle && siteNav) {
   navToggle.addEventListener("click", () => {
-    const isOpen = siteNav.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
-    document.body.classList.toggle("is-menu-open", isOpen);
+    setMobileMenu(!siteNav.classList.contains("is-open"));
   });
 
   siteNav.addEventListener("click", (event) => {
-    if (event.target instanceof HTMLAnchorElement) {
+    if (event.target instanceof Element && event.target.closest("a")) {
+      closeMobileMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
       closeMobileMenu();
     }
   });
 }
 
+function setMobileMenu(isOpen) {
+  siteNav?.classList.toggle("is-open", isOpen);
+  navToggle?.setAttribute("aria-expanded", String(isOpen));
+  navToggle?.setAttribute("aria-label", isOpen ? "Chiudi menu" : "Apri menu");
+  document.body.classList.toggle("is-menu-open", isOpen);
+}
+
 function closeMobileMenu() {
-  siteNav?.classList.remove("is-open");
-  navToggle?.setAttribute("aria-expanded", "false");
-  document.body.classList.remove("is-menu-open");
+  setMobileMenu(false);
 }
 
 function escapeHtml(value) {
@@ -379,6 +389,7 @@ document.addEventListener("keydown", (event) => {
 
   if (event.key === "Escape" && siteNav?.classList.contains("is-open")) {
     closeMobileMenu();
+    navToggle?.focus();
   }
 
   if (brochureZoomOpen && event.key === "ArrowLeft") {
@@ -462,7 +473,7 @@ function updateBrochureZoom() {
 }
 
 function openBrochureZoom() {
-  if (!brochureZoom) return;
+  if (!brochureZoom || !brochureZoomMobileQuery.matches) return;
   lastFocusedElement = document.activeElement;
   updateBrochureZoom();
   brochureZoom.classList.add("is-open");
@@ -479,13 +490,32 @@ function closeBrochureZoom() {
   restoreFocus();
 }
 
+function updateBrochureZoomAvailability() {
+  const canZoom = brochureZoomMobileQuery.matches;
+
+  brochureZoomOpenButtons.forEach((button) => {
+    button.disabled = !canZoom;
+    button.setAttribute("aria-label", canZoom ? "Ingrandisci pagina brochure TDash" : "Preview pagina brochure TDash");
+  });
+
+  if (!canZoom && brochureZoom?.classList.contains("is-open")) {
+    closeBrochureZoom();
+  }
+}
+
 function initBrochureReader() {
   if (!brochurePage) return;
   setBrochurePage(0);
+  updateBrochureZoomAvailability();
 
   brochurePrev?.addEventListener("click", () => setBrochurePage(currentBrochurePage - 1));
   brochureNext?.addEventListener("click", () => setBrochurePage(currentBrochurePage + 1));
   brochureZoomOpenButtons.forEach((button) => button.addEventListener("click", openBrochureZoom));
+  if ("addEventListener" in brochureZoomMobileQuery) {
+    brochureZoomMobileQuery.addEventListener("change", updateBrochureZoomAvailability);
+  } else {
+    brochureZoomMobileQuery.addListener(updateBrochureZoomAvailability);
+  }
   document.querySelectorAll("[data-brochure-zoom-close]").forEach((button) => {
     button.addEventListener("click", closeBrochureZoom);
   });

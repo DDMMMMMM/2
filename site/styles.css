@@ -1004,8 +1004,12 @@ section[id] {
   border-radius: var(--radius-sm);
   padding: 0;
   background: transparent;
-  cursor: zoom-in;
+  cursor: default;
   line-height: 0;
+}
+
+.reader-page-button:disabled {
+  opacity: 1;
 }
 
 .reader-frame img {
@@ -1345,8 +1349,13 @@ section[id] {
   }
 
   .site-header {
+    z-index: 600;
     min-height: var(--header-h);
     padding: 12px 16px;
+  }
+
+  body.is-menu-open .site-header {
+    background: var(--paper);
   }
 
   .brand img {
@@ -1355,31 +1364,50 @@ section[id] {
   }
 
   .nav-toggle {
+    position: relative;
+    z-index: 2;
     display: inline-flex;
     width: 44px;
     height: 44px;
+    flex: 0 0 auto;
   }
 
   .site-nav {
-    position: fixed;
-    top: var(--header-h);
+    position: absolute;
+    z-index: 1;
+    top: calc(100% + 1px);
     left: 0;
     right: 0;
-    bottom: 0;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 24px 20px;
-    background: rgba(8, 10, 7, 0.98);
+    height: calc(100vh - var(--header-h));
+    height: calc(100dvh - var(--header-h));
+    max-height: calc(100vh - var(--header-h));
+    max-height: calc(100dvh - var(--header-h));
+    border-bottom: 1px solid var(--line);
+    padding: 18px 16px calc(28px + env(safe-area-inset-bottom));
+    background: var(--paper);
+    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.42);
     overflow-y: auto;
+    overscroll-behavior: contain;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    visibility: hidden;
+    transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
     -webkit-overflow-scrolling: touch;
   }
 
   .site-nav.is-open {
-    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    visibility: visible;
   }
 
   .site-nav a {
+    flex: 0 0 auto;
     min-height: 52px;
     justify-content: flex-start;
     border-bottom: 1px solid var(--line);
@@ -1761,6 +1789,10 @@ section[id] {
 
   .reader-arrow-next {
     right: 14px;
+  }
+
+  .reader-page-button:not(:disabled) {
+    cursor: zoom-in;
   }
 
   .brochure-zoom {
