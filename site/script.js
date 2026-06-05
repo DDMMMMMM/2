@@ -158,7 +158,10 @@ const lightboxCategory = document.querySelector("[data-lightbox-category]");
 const brochurePage = document.querySelector("[data-brochure-page]");
 const brochurePrev = document.querySelector("[data-brochure-prev]");
 const brochureNext = document.querySelector("[data-brochure-next]");
+const brochureDetails = document.querySelector("[data-brochure-details]");
+const brochureToggleButton = document.querySelector("[data-brochure-toggle]");
 const brochureZoom = document.querySelector("[data-brochure-zoom]");
+const brochureZoomStage = document.querySelector(".brochure-zoom-stage");
 const brochureZoomImage = document.querySelector("[data-brochure-zoom-image]");
 const brochureZoomOpenButtons = document.querySelectorAll("[data-brochure-zoom-open]");
 const brochureZoomPrev = document.querySelector("[data-brochure-zoom-prev]");
@@ -449,6 +452,7 @@ function setBrochurePage(index) {
   brochurePage.src = brochurePages[currentBrochurePage];
   brochurePage.alt = `Brochure TDash pagina ${currentBrochurePage + 1}`;
   updateBrochureZoom();
+  brochureZoomStage?.scrollTo({ top: 0, left: 0 });
 
   if (!prefersReducedMotion) {
     brochurePage.classList.remove("is-turning");
@@ -503,13 +507,31 @@ function updateBrochureZoomAvailability() {
   }
 }
 
+function openBrochureReader() {
+  if (!brochureDetails) return;
+  brochureDetails.open = true;
+  brochureToggleButton?.setAttribute("aria-expanded", "true");
+
+  requestAnimationFrame(() => {
+    brochureDetails.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+  });
+}
+
 function initBrochureReader() {
   if (!brochurePage) return;
+  if (brochureZoom && brochureZoom.parentElement !== document.body) {
+    document.body.appendChild(brochureZoom);
+  }
   setBrochurePage(0);
   updateBrochureZoomAvailability();
+  brochureToggleButton?.setAttribute("aria-expanded", String(Boolean(brochureDetails?.open)));
 
   brochurePrev?.addEventListener("click", () => setBrochurePage(currentBrochurePage - 1));
   brochureNext?.addEventListener("click", () => setBrochurePage(currentBrochurePage + 1));
+  brochureToggleButton?.addEventListener("click", openBrochureReader);
+  brochureDetails?.addEventListener("toggle", () => {
+    brochureToggleButton?.setAttribute("aria-expanded", String(brochureDetails.open));
+  });
   brochureZoomOpenButtons.forEach((button) => button.addEventListener("click", openBrochureZoom));
   if ("addEventListener" in brochureZoomMobileQuery) {
     brochureZoomMobileQuery.addEventListener("change", updateBrochureZoomAvailability);
