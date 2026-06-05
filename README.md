@@ -5,8 +5,10 @@ Sito statico premium per 2YOU Agency, pronto per pubblicazione come Static Site 
 ## Struttura
 
 - `site/index.html`: homepage.
+- `site/lavori/index.html`: archivio completo dei lavori.
 - `site/styles.css`: design system, responsive layout e animazioni.
-- `site/script.js`: menu mobile, risultati filtrabili, lightbox, reveal, counter e copia handle.
+- `site/script.js`: menu mobile, risultati in home, lightbox, reveal, counter e copia handle.
+- `site/archive.js`: archivio lavori, filtri e lightbox della pagina `lavori/`.
 - `site/content/results-feed.json`: dati della sezione risultati.
 - `site/assets/tdash/pages/`: pagine WebP usate dal viewer brochure TDash. Il PDF non va pubblicato nella cartella statica.
 - `site/assets/screens/`: screen ottimizzati in WebP.
